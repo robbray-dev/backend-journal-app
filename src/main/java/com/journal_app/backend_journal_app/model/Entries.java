@@ -1,5 +1,9 @@
 package com.journal_app.backend_journal_app.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +12,13 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
 public class Entries {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private java.sql.Timestamp created_at;
     private String title;
     private java.sql.Date entry_date;

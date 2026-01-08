@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
-
+@Table(name  = "entries")
 @Entity
 public class Entries {
 
@@ -20,8 +20,6 @@ public class Entries {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "entry_date")
-    private java.sql.Date entry_date;
 
     @Column(name = "what_did")
     private String what_did;
@@ -41,7 +39,6 @@ public class Entries {
                     UUID user_id){
         this.id = id;
         this.title = title;
-        this.entry_date = entry_date;
         this.what_did = what_did;
         this.what_learned = what_learned;
         this.user_id = user_id;
@@ -58,9 +55,6 @@ public class Entries {
         return title;
     }
 
-    public Date getEntry_date() {
-        return entry_date;
-    }
 
     public String getWhat_did() {
         return what_did;
@@ -85,9 +79,6 @@ public class Entries {
         this.title = title;
     }
 
-    public void setEntry_date(Date entry_date) {
-        this.entry_date = entry_date;
-    }
 
     public void setWhat_did(String what_did) {
         this.what_did = what_did;
@@ -102,16 +93,15 @@ public class Entries {
         this.user_id = user_id;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Entries entries = (Entries) o;
-        return id == entries.id && Objects.equals(title, entries.title) && Objects.equals(entry_date, entries.entry_date) && Objects.equals(what_did, entries.what_did) && Objects.equals(what_learned, entries.what_learned) && Objects.equals(user_id, entries.user_id);
+        return id == entries.id && Objects.equals(title, entries.title) && Objects.equals(what_did, entries.what_did) && Objects.equals(what_learned, entries.what_learned) && Objects.equals(user_id, entries.user_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, entry_date, what_did, what_learned, user_id);
+        return Objects.hash(id, title, what_did, what_learned, user_id);
     }
 }

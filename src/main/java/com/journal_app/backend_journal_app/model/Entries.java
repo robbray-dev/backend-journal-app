@@ -35,7 +35,7 @@ public class Entries {
     }
 
     public Entries(long id, String title,
-                   java.sql.Date entry_date, String what_did, String what_learned,
+                    String what_did, String what_learned,
                     UUID user_id){
         this.id = id;
         this.title = title;

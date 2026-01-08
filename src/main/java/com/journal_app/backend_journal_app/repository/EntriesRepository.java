@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface EntriesRepository
         extends JpaRepository<Entries, Integer> {
 
-    @Query(value = "SELECT id, title, entry_date, what_did, what_learned FROM entries WHERE user_id:=user_id", nativeQuery = true)
+    @Query(value = "SELECT id, title, what_did, what_learned FROM entries WHERE user_id:=user_id", nativeQuery = true)
     List<Entries> getEntriesByUserId(@Param("user_id")UUID user_id);
 
 

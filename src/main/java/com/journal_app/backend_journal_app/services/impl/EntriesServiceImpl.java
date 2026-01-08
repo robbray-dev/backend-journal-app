@@ -1,0 +1,32 @@
+package com.journal_app.backend_journal_app.services.impl;
+
+import com.journal_app.backend_journal_app.dto.EntriesDto;
+import com.journal_app.backend_journal_app.mapper.EntriesMapper;
+import com.journal_app.backend_journal_app.model.Entries;
+import com.journal_app.backend_journal_app.repository.EntriesRepository;
+import com.journal_app.backend_journal_app.services.IEntriesService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+@Service
+@AllArgsConstructor
+public class EntriesServiceImpl implements IEntriesService {
+
+    private EntriesRepository entriesRepository;
+
+    @Override
+    public EntriesDto createEntries(EntriesDto entriesDto) {
+
+        //to store the entry into database, we need to convert the dto to entity
+        Entries entries = EntriesMapper.mapToEntries(entriesDto);
+        Entries savedEntries = entriesRepository.save(entries);
+
+        //will need to return the entries to the client, as a dto
+        EntriesDto entriesDtoClient = EntriesMapper.mapToEntriesDto(savedEntries);
+
+        return entriesDtoClient;
+    }
+}

@@ -16,7 +16,4 @@ public class EntriesDto {
     private String title;
     private String what_did;
     private String what_learned;
-
-    //may remove this from the dto
-    private UUID user_id;
 }

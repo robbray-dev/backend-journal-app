@@ -26,11 +26,13 @@ public class AuthController {
             String token = authHeader.substring(7); // Remove "Bearer "
 
             if (jwtService.validateToken(token)) {
+                String role = jwtService.extractRole(token);
                 String personId = jwtService.extractPersonId(token);
                 String personName = jwtService.extractName(token);
 
                 Map<String, Object> response = new HashMap<>();
                 response.put("valid", true);
+                response.put("role", role);
                 response.put("personId", personId);
                 response.put("personName", personName);
 

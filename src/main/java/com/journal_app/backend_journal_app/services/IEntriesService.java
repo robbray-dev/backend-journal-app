@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IEntriesService {
 
-    EntriesDto createEntries(EntriesDto entriesDto);
+    EntriesDto createEntries(EntriesDto entriesDto, String personId);
 
 
 }

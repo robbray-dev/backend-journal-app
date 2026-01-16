@@ -40,6 +40,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 personRole = jwtService.extractRole(token);
                 personId = jwtService.extractPersonId(token);
                 personName = jwtService.extractName(token);
+                System.out.print("person role " + personRole);
+                System.out.print("person id " + personId);
+                System.out.print("person name " + personName);
             } catch (Exception e) {
                 // Invalid token
                 filterChain.doFilter(request, response);

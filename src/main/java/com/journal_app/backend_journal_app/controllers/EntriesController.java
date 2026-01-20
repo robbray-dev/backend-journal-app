@@ -26,17 +26,12 @@ public class EntriesController {
     @PostMapping
     public ResponseEntity<EntriesDto> createEntries(@RequestBody EntriesDto entriesDto,
                                                     Authentication authentication){
-        System.out.println("HERE _1");
         Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
 
-        System.out.println("HERE _2");
 
         String personId = (String) principal.get("personId");
-        System.out.println("HERE _3");
-
 
         EntriesDto savedEntries = entriesService.createEntries(entriesDto, personId);
-        System.out.println("HERE _4");
 
         return new ResponseEntity<>(savedEntries, HttpStatus.CREATED);
     }

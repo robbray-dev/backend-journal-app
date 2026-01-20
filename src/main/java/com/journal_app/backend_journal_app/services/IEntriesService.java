@@ -9,5 +9,7 @@ public interface IEntriesService {
 
     EntriesDto createEntries(EntriesDto entriesDto, String personId);
 
+    List<EntriesDto> getAllEntries(String personId);
+
 
 }

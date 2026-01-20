@@ -29,4 +29,9 @@ public class EntriesServiceImpl implements IEntriesService {
 
         return entriesDtoClient;
     }
+
+    @Override
+    public List<EntriesDto> getAllEntries(String personId) {
+        return null;
+    }
 }

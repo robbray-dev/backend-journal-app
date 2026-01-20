@@ -8,6 +8,7 @@ import java.util.UUID;
 public class EntriesMapper {
     public static EntriesDto mapToEntriesDto(Entries entry) {
         return new EntriesDto(
+                entry.getId(),
                 entry.getTitle(),
                 entry.getWhat_did(),
                 entry.getWhat_learned()
@@ -16,12 +17,17 @@ public class EntriesMapper {
 
     public static Entries mapToEntries(EntriesDto entriesDto, String personId) {
         UUID userId = UUID.fromString(personId);
-        return new Entries(
-                1,
-                entriesDto.getTitle(),
-                entriesDto.getWhat_did(),
-                entriesDto.getWhat_learned(),
-                userId
-        );
+        Entries entry = new Entries();
+
+        if(entriesDto.getId() != null){
+            entry.setId(entriesDto.getId());
+        }
+
+        entry.setTitle(entriesDto.getTitle());
+        entry.setWhat_did(entriesDto.getWhat_did());
+        entry.setWhat_learned(entriesDto.getWhat_learned());
+        entry.setUser_id(userId);
+
+        return entry;
     }
 }

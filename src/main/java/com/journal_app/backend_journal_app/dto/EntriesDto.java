@@ -12,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntriesDto {
+    private Long id;
     private String title;
     private String what_did;
     private String what_learned;

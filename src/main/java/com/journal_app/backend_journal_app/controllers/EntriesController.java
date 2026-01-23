@@ -35,13 +35,16 @@ public class EntriesController {
     }
 
     //get entries
-    @GetMapping("/getEntries")
+    @GetMapping
     public List<EntriesDto> getEntries(Authentication authentication){
         Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
 
         String personId = (String) principal.get("personId");
 
+        System.out.println("Here we areeeee");
+
         List<EntriesDto> entriesDtos = entriesService.getAllEntries(personId);
+
 
         return entriesDtos;
     }

@@ -8,7 +8,9 @@ import com.journal_app.backend_journal_app.services.IEntriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -32,6 +34,16 @@ public class EntriesServiceImpl implements IEntriesService {
 
     @Override
     public List<EntriesDto> getAllEntries(String personId) {
-        return null;
+        //get the entries with this personId
+        UUID userId = UUID.fromString(personId);
+
+        List<Entries> entries = entriesRepository.getEntriesByUserId(userId);
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+        for (Entries entry : entries) {
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+
+        return entriesDtos;
     }
 }

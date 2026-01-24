@@ -45,7 +45,6 @@ public class EntriesController {
 
         List<EntriesDto> entriesDtos = entriesService.getAllEntries(personId);
 
-
         return entriesDtos;
     }
 }

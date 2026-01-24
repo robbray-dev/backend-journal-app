@@ -34,6 +34,8 @@ public class EntriesServiceImpl implements IEntriesService {
 
     @Override
     public List<EntriesDto> getAllEntries(String personId) {
+
+        System.out.println("Is it reaching here");
         //get the entries with this personId
         UUID userId = UUID.fromString(personId);
 

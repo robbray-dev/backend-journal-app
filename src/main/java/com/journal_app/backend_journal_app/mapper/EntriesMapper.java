@@ -26,7 +26,7 @@ public class EntriesMapper {
         entry.setTitle(entriesDto.getTitle());
         entry.setWhat_did(entriesDto.getWhat_did());
         entry.setWhat_learned(entriesDto.getWhat_learned());
-        entry.setUser_id(userId);
+        entry.setUsers(userId);
 
         return entry;
     }

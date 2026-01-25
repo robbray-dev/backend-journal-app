@@ -28,7 +28,7 @@ public class Entries {
     private String what_learned;
 
     @Column(name = "users")
-    private UUID user_id;
+    private UUID users;
 
     public Entries(){
 
@@ -36,12 +36,12 @@ public class Entries {
 
     public Entries(long id, String title,
                     String what_did, String what_learned,
-                    UUID user_id){
+                    UUID users){
         this.id = id;
         this.title = title;
         this.what_did = what_did;
         this.what_learned = what_learned;
-        this.user_id = user_id;
+        this.users = users;
 
     }
 
@@ -65,9 +65,6 @@ public class Entries {
     }
 
 
-    public UUID getUser_id() {
-        return user_id;
-    }
 
     //setters
     public void setId(long id) {
@@ -88,20 +85,23 @@ public class Entries {
         this.what_learned = what_learned;
     }
 
+    public UUID getUsers() {
+        return users;
+    }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setUsers(UUID users) {
+        this.users = users;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Entries entries = (Entries) o;
-        return id == entries.id && Objects.equals(title, entries.title) && Objects.equals(what_did, entries.what_did) && Objects.equals(what_learned, entries.what_learned) && Objects.equals(user_id, entries.user_id);
+        return id == entries.id && Objects.equals(title, entries.title) && Objects.equals(what_did, entries.what_did) && Objects.equals(what_learned, entries.what_learned) && Objects.equals(users, entries.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, what_did, what_learned, user_id);
+        return Objects.hash(id, title, what_did, what_learned, users);
     }
 }

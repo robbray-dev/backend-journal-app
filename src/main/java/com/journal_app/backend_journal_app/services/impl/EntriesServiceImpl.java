@@ -35,7 +35,6 @@ public class EntriesServiceImpl implements IEntriesService {
     @Override
     public List<EntriesDto> getAllEntries(String personId) {
 
-        System.out.println("Is it reaching here");
         //get the entries with this personId
         UUID userId = UUID.fromString(personId);
 
@@ -48,4 +47,18 @@ public class EntriesServiceImpl implements IEntriesService {
 
         return entriesDtos;
     }
+
+
+    //delete
+    @Override
+    public void deleteEntry(Long id) {
+
+        //delete an entry by the id
+
+        entriesRepository.deleteById(id);
+
+
+    }
+
+
 }

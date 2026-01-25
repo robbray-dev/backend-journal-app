@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EntriesRepository
-        extends JpaRepository<Entries, Integer> {
+        extends JpaRepository<Entries, Long> {
 
     List<Entries> findByUsers(UUID users);
 

@@ -39,7 +39,7 @@ public class EntriesServiceImpl implements IEntriesService {
         //get the entries with this personId
         UUID userId = UUID.fromString(personId);
 
-        List<Entries> entries = entriesRepository.getEntriesByUserId(userId);
+        List<Entries> entries = entriesRepository.findByUsers(userId);
 
         List<EntriesDto> entriesDtos = new ArrayList<>();
         for (Entries entry : entries) {

@@ -11,5 +11,8 @@ public interface IEntriesService {
 
     List<EntriesDto> getAllEntries(String personId);
 
+    void deleteEntry(Long id);
+
+
 
 }

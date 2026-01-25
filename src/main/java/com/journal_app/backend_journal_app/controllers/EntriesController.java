@@ -20,6 +20,7 @@ public class EntriesController {
 
     private EntriesServiceImpl entriesService;
 
+
     //Add entry rest api
     @PostMapping
     public ResponseEntity<EntriesDto> createEntries(@RequestBody EntriesDto entriesDto,
@@ -41,10 +42,22 @@ public class EntriesController {
 
         String personId = (String) principal.get("personId");
 
-        System.out.println("Here we areeeee");
-
         List<EntriesDto> entriesDtos = entriesService.getAllEntries(personId);
 
         return entriesDtos;
     }
+
+
+    //delete
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEntries(@PathVariable("id")Long entryId,
+                                                Authentication authentication){
+
+        entriesService.deleteEntry(entryId);
+
+        return ResponseEntity.ok("entry was sucessfully deleted.");
+    }
+
+
 }

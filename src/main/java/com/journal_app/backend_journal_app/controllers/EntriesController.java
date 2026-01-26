@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +77,17 @@ public class EntriesController {
 
         return ResponseEntity.ok(entriesService.getTodaysEntries(personId));
     }
+
+    @GetMapping("/range")
+    public ResponseEntity<List<EntriesDto>> getEntriesForRange(
+            @RequestParam LocalDate start, @RequestParam LocalDate end, Authentication authentication) {
+
+        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
+        String personId = (String) principal.get("personId");
+
+        return ResponseEntity.ok(entriesService.getRangeOfEntries(personId, start, end));
+    }
+
 
 
 

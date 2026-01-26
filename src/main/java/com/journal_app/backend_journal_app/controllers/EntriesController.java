@@ -68,6 +68,17 @@ public class EntriesController {
         return ResponseEntity.ok(entryDto);
     }
 
+    @GetMapping("/today")
+    public ResponseEntity<List<EntriesDto>> getTodayEntries(Authentication authentication){
+        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
+
+        String personId = (String) principal.get("personId");
+
+        return ResponseEntity.ok(entriesService.getTodaysEntries(personId));
+    }
+
+
+
 
 
 

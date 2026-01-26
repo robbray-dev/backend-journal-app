@@ -15,6 +15,8 @@ public interface IEntriesService {
 
     EntriesDto updateEntry(Long id, EntriesDto entry);
 
+    List<EntriesDto> getTodaysEntries(String personId);
+
 
 
 }

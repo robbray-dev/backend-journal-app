@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 @Table(name  = "entries")
@@ -29,6 +30,10 @@ public class Entries {
 
     @Column(name = "users")
     private UUID users;
+
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private Instant createdAt;
+
 
     public Entries(){
 
@@ -91,6 +96,14 @@ public class Entries {
 
     public void setUsers(UUID users) {
         this.users = users;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

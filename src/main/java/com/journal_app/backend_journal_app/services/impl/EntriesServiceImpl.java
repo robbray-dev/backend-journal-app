@@ -8,6 +8,10 @@ import com.journal_app.backend_journal_app.services.IEntriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -78,6 +82,28 @@ public class EntriesServiceImpl implements IEntriesService {
 
         return EntriesMapper.mapToEntriesDto(updatedEntry);
 
+    }
+
+    @Override
+    public List<EntriesDto> getTodaysEntries(String personId) {
+        UUID userId = UUID.fromString(personId);
+        Instant start = LocalDate.now(ZoneOffset.UTC)
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC);
+
+        Instant end = start.plus(1, ChronoUnit.DAYS);
+
+        List<Entries> entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
+                userId, start, end
+        );
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+
+        for(Entries entry: entries){
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+
+        return entriesDtos;
     }
 
 

@@ -8,6 +8,7 @@ import com.journal_app.backend_journal_app.services.IEntriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -127,6 +128,30 @@ public class EntriesServiceImpl implements IEntriesService {
         for (Entries entry : entries) {
             entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
         }
+        return entriesDtos;
+    }
+
+    @Override
+    public List<EntriesDto> getWeekEntries(String personId) {
+        UUID userId = UUID.fromString(personId);
+        LocalDate today = LocalDate.now(ZoneOffset.UTC);
+
+        LocalDate monday = today.with(DayOfWeek.MONDAY);
+        LocalDate nextMonday = monday.plusWeeks(1);
+
+        Instant start = monday.atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant end = nextMonday.atStartOfDay().toInstant(ZoneOffset.UTC);
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+
+        List<Entries>  entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
+                userId, start, end
+        );
+
+        for(Entries entry: entries) {
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+
         return entriesDtos;
     }
 

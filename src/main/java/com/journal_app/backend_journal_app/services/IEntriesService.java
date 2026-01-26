@@ -20,6 +20,8 @@ public interface IEntriesService {
 
     List<EntriesDto> getRangeOfEntries(String personId, LocalDate start, LocalDate end);
 
+    List<EntriesDto> getWeekEntries(String personId);
+
 
 
 }

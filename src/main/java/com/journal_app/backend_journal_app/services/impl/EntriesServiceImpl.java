@@ -60,5 +60,25 @@ public class EntriesServiceImpl implements IEntriesService {
 
     }
 
+    @Override
+    public EntriesDto updateEntry(Long id, EntriesDto entry) {
+
+
+        Entries entryToUpdate = entriesRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("invalid id given : " + id)
+        );
+
+        entryToUpdate.setTitle(entry.getTitle());
+        entryToUpdate.setWhat_learned(entry.getWhat_learned());
+        entryToUpdate.setWhat_did(entry.getWhat_did());
+
+
+        Entries updatedEntry = entriesRepository.save(entryToUpdate);
+
+
+        return EntriesMapper.mapToEntriesDto(updatedEntry);
+
+    }
+
 
 }

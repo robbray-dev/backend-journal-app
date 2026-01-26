@@ -13,6 +13,8 @@ public interface IEntriesService {
 
     void deleteEntry(Long id);
 
+    EntriesDto updateEntry(Long id, EntriesDto entry);
+
 
 
 }

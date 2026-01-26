@@ -49,7 +49,6 @@ public class EntriesController {
 
 
     //delete
-
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteEntries(@PathVariable("id")Long entryId,
                                                 Authentication authentication){
@@ -58,6 +57,17 @@ public class EntriesController {
 
         return ResponseEntity.ok("entry was sucessfully deleted.");
     }
+
+    //update
+    @PutMapping("{id}")
+    public ResponseEntity<EntriesDto> updateEntry(@PathVariable("id") Long entryId,
+                                                  @RequestBody EntriesDto updatedEntry,
+                                                  Authentication authentication){
+        EntriesDto entryDto = entriesService.updateEntry(entryId, updatedEntry);
+
+        return ResponseEntity.ok(entryDto);
+    }
+
 
 
 

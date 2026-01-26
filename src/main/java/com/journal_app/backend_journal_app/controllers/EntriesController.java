@@ -88,8 +88,14 @@ public class EntriesController {
         return ResponseEntity.ok(entriesService.getRangeOfEntries(personId, start, end));
     }
 
+    @GetMapping("/weekly")
+    public ResponseEntity<List<EntriesDto>> getEntriesWeekly(
+            Authentication authentication) {
+        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
+        String personId = (String) principal.get("personId");
 
-
+        return ResponseEntity.ok(entriesService.getWeekEntries(personId));
+    }
 
 
 

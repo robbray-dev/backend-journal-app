@@ -106,5 +106,29 @@ public class EntriesServiceImpl implements IEntriesService {
         return entriesDtos;
     }
 
+    @Override
+    public List<EntriesDto> getRangeOfEntries(String personId, LocalDate startDate, LocalDate endDate) {
+        UUID userId = UUID.fromString(personId);
+        Instant start = startDate
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC);
+
+        Instant end = endDate
+                .plusDays(1)   // inclusive end date
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC);
+
+        List<Entries> entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
+                userId, start, end
+        );
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+
+        for (Entries entry : entries) {
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+        return entriesDtos;
+    }
+
 
 }

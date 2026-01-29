@@ -58,10 +58,8 @@ public class EntriesServiceImpl implements IEntriesService {
     @Override
     public void deleteEntry(Long id) {
 
-        //delete an entry by the id
 
         entriesRepository.deleteById(id);
-
 
     }
 

@@ -72,7 +72,7 @@ public class EntriesServiceImpl implements IEntriesService {
 
 
         Entries entryToUpdate = entriesRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("invalid id given : " + id)
+                () -> new ResourceNotFoundException("invalid id given : " + id)
         );
 
         entryToUpdate.setTitle(entry.getTitle());

@@ -1,6 +1,7 @@
 package com.journal_app.backend_journal_app.services.impl;
 
 import com.journal_app.backend_journal_app.dto.EntriesDto;
+import com.journal_app.backend_journal_app.exception.ResourceNotFoundException;
 import com.journal_app.backend_journal_app.mapper.EntriesMapper;
 import com.journal_app.backend_journal_app.model.Entries;
 import com.journal_app.backend_journal_app.repository.EntriesRepository;
@@ -58,6 +59,9 @@ public class EntriesServiceImpl implements IEntriesService {
     @Override
     public void deleteEntry(Long id) {
 
+        Entries entry = entriesRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Entry with id does not exist: " + id)
+        );
 
         entriesRepository.deleteById(id);
 

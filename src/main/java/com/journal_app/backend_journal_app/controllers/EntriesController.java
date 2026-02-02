@@ -2,6 +2,7 @@ package com.journal_app.backend_journal_app.controllers;
 
 import com.journal_app.backend_journal_app.dto.EntriesDto;
 import com.journal_app.backend_journal_app.services.impl.EntriesServiceImpl;
+import com.journal_app.backend_journal_app.util.AuthUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class EntriesController {
 
     private EntriesServiceImpl entriesService;
+    private final AuthUtil authUtil;
+
 
 
     //Add entry rest api
@@ -29,10 +32,7 @@ public class EntriesController {
     public ResponseEntity<EntriesDto> createEntries(@Valid @RequestBody EntriesDto entriesDto,
                                                     Authentication authentication){
 
-        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
-
-
-        String personId = (String) principal.get("personId");
+        String personId = authUtil.getPersonId(authentication);
 
         EntriesDto savedEntries = entriesService.createEntries(entriesDto, personId);
 
@@ -44,9 +44,7 @@ public class EntriesController {
     public ResponseEntity<List<EntriesDto>> getEntries(Authentication authentication){
 
 
-        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
-
-        String personId = (String) principal.get("personId");
+        String personId = authUtil.getPersonId(authentication);
 
         if (personId == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -84,9 +82,7 @@ public class EntriesController {
     public ResponseEntity<List<EntriesDto>> getTodayEntries(Authentication authentication){
 
 
-        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
-
-        String personId = (String) principal.get("personId");
+        String personId = authUtil.getPersonId(authentication);
 
 
         return ResponseEntity.ok(entriesService.getTodaysEntries(personId));
@@ -97,8 +93,7 @@ public class EntriesController {
             @RequestParam LocalDate start, @RequestParam LocalDate end, Authentication authentication) {
 
 
-        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
-        String personId = (String) principal.get("personId");
+        String personId = authUtil.getPersonId(authentication);
 
 
         return ResponseEntity.ok(entriesService.getRangeOfEntries(personId, start, end));
@@ -108,9 +103,7 @@ public class EntriesController {
     public ResponseEntity<List<EntriesDto>> getEntriesWeekly(
             Authentication authentication) {
 
-        Map<String, String> principal = (Map<String, String>) authentication.getPrincipal();
-
-        String personId = (String) principal.get("personId");
+        String personId = authUtil.getPersonId(authentication);
 
 
         return ResponseEntity.ok(entriesService.getWeekEntries(personId));

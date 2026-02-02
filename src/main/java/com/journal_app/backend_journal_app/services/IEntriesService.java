@@ -2,6 +2,7 @@ package com.journal_app.backend_journal_app.services;
 
 import com.journal_app.backend_journal_app.dto.EntriesDto;
 import com.journal_app.backend_journal_app.model.Entries;
+import org.apache.coyote.BadRequestException;
 
 import java.time.LocalDate;
 import java.util.List;

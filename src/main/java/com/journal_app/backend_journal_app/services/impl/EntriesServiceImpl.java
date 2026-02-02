@@ -27,6 +27,7 @@ public class EntriesServiceImpl implements IEntriesService {
 
     @Override
     public EntriesDto createEntries(EntriesDto entriesDto, String personId) {
+        
 
         //to store the entry into database, we need to convert the dto to entity
         Entries entries = EntriesMapper.mapToEntries(entriesDto, personId);

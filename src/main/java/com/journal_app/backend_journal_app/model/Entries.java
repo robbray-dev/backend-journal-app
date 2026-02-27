@@ -3,6 +3,7 @@ package com.journal_app.backend_journal_app.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -31,7 +32,8 @@ public class Entries {
     @Column(name = "users")
     private UUID users;
 
-    @Column(name = "created_at", updatable = false, insertable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false, nullable = false)
     private Instant createdAt;
 
 

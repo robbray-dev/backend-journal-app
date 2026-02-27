@@ -11,7 +11,8 @@ public class EntriesMapper {
                 entry.getId(),
                 entry.getTitle(),
                 entry.getWhat_did(),
-                entry.getWhat_learned()
+                entry.getWhat_learned(),
+                entry.getCreatedAt()
         );
     }
 

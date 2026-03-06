@@ -26,8 +26,6 @@ public class EntriesDto {
     @NotBlank
     private String what_learned;
 
-    private Instant createdAt;
-
     private LocalDate entryDate;
 
 }

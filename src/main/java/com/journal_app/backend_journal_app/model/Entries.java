@@ -11,6 +11,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+@Getter
+@Setter
 @Table(name  = "entries")
 @Entity
 public class Entries {
@@ -47,70 +49,16 @@ public class Entries {
 
     public Entries(long id, String title,
                     String what_did, String what_learned,
-                    UUID users){
+                    UUID users, LocalDate entryDate){
         this.id = id;
         this.title = title;
         this.what_did = what_did;
         this.what_learned = what_learned;
+        this.entryDate = entryDate;
         this.users = users;
 
     }
 
-    //getters
-    public long getId() {
-        return id;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public String getWhat_did() {
-        return what_did;
-    }
-
-    public String getWhat_learned() {
-        return what_learned;
-    }
-
-
-
-    //setters
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    public void setWhat_did(String what_did) {
-        this.what_did = what_did;
-    }
-
-    public void setWhat_learned(String what_learned) {
-        this.what_learned = what_learned;
-    }
-
-    public UUID getUsers() {
-        return users;
-    }
-
-    public void setUsers(UUID users) {
-        this.users = users;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -109,6 +109,17 @@ public class EntriesController {
         return ResponseEntity.ok(entriesService.getWeekEntries(personId));
     }
 
+    @GetMapping("/by-date")
+    public List<EntriesDto> getEntriesByDate(
+            @RequestParam LocalDate date,
+            Authentication authentication
+    ) {
+
+        String personId = authUtil.getPersonId(authentication);
+
+        return entriesService.getEntriesByDate(personId, date);
+    }
+
 
 
 

@@ -12,8 +12,8 @@ public class EntriesMapper {
                 entry.getTitle(),
                 entry.getWhat_did(),
                 entry.getWhat_learned(),
-                entry.getCreatedAt()
-        );
+                entry.getEntryDate()
+                );
     }
 
     public static Entries mapToEntries(EntriesDto entriesDto, String personId) {
@@ -28,6 +28,7 @@ public class EntriesMapper {
         entry.setWhat_did(entriesDto.getWhat_did());
         entry.setWhat_learned(entriesDto.getWhat_learned());
         entry.setUsers(userId);
+        entry.setEntryDate(entriesDto.getEntryDate());
 
         return entry;
     }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,15 @@ public interface EntriesRepository
             Instant end
     );
 
+    List<Entries> findByPersonIdAndEntryDate(String personId, LocalDate entryDate);
 
+    List<Entries> findByUsersAndEntryDate(UUID userId, LocalDate entryDate);
+
+    List<Entries> findByUsersAndEntryDateBetweenOrderByEntryDateDesc(
+            UUID userId,
+            LocalDate startDate,
+            LocalDate endDate
+    );
 
 
 }

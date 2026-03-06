@@ -90,73 +90,87 @@ public class EntriesServiceImpl implements IEntriesService {
 
     @Override
     public List<EntriesDto> getTodaysEntries(String personId) {
+
         UUID userId = UUID.fromString(personId);
-        Instant start = LocalDate.now(ZoneOffset.UTC)
-                .atStartOfDay()
-                .toInstant(ZoneOffset.UTC);
+        LocalDate today = LocalDate.now();
 
-        Instant end = start.plus(1, ChronoUnit.DAYS);
-
-        List<Entries> entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
-                userId, start, end
-        );
-
-        List<EntriesDto> entriesDtos = new ArrayList<>();
-
-        for(Entries entry: entries){
-            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
-        }
-
-        return entriesDtos;
-    }
-
-    @Override
-    public List<EntriesDto> getRangeOfEntries(String personId, LocalDate startDate, LocalDate endDate) {
-        UUID userId = UUID.fromString(personId);
-        Instant start = startDate
-                .atStartOfDay()
-                .toInstant(ZoneOffset.UTC);
-
-        Instant end = endDate
-                .plusDays(1)   // inclusive end date
-                .atStartOfDay()
-                .toInstant(ZoneOffset.UTC);
-
-        List<Entries> entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
-                userId, start, end
-        );
+        List<Entries> entries =
+                entriesRepository.findByUsersAndEntryDate(userId, today);
 
         List<EntriesDto> entriesDtos = new ArrayList<>();
 
         for (Entries entry : entries) {
             entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
         }
+
         return entriesDtos;
     }
-
     @Override
-    public List<EntriesDto> getWeekEntries(String personId) {
+    public List<EntriesDto> getRangeOfEntries(
+            String personId,
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+
         UUID userId = UUID.fromString(personId);
-        LocalDate today = LocalDate.now(ZoneOffset.UTC);
 
-        LocalDate monday = today.with(DayOfWeek.MONDAY);
-        LocalDate nextMonday = monday.plusWeeks(1);
-
-        Instant start = monday.atStartOfDay().toInstant(ZoneOffset.UTC);
-        Instant end = nextMonday.atStartOfDay().toInstant(ZoneOffset.UTC);
+        List<Entries> entries =
+                entriesRepository.findByUsersAndEntryDateBetweenOrderByEntryDateDesc(
+                        userId,
+                        startDate,
+                        endDate
+                );
 
         List<EntriesDto> entriesDtos = new ArrayList<>();
 
-        List<Entries>  entries = entriesRepository.findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
-                userId, start, end
-        );
-
-        for(Entries entry: entries) {
+        for (Entries entry : entries) {
             entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
         }
 
         return entriesDtos;
     }
+
+    @Override
+    public List<EntriesDto> getWeekEntries(String personId) {
+
+        UUID userId = UUID.fromString(personId);
+
+        LocalDate today = LocalDate.now();
+        LocalDate monday = today.with(DayOfWeek.MONDAY);
+        LocalDate sunday = monday.plusDays(6);
+
+        List<Entries> entries =
+                entriesRepository.findByUsersAndEntryDateBetweenOrderByEntryDateDesc(
+                        userId,
+                        monday,
+                        sunday
+                );
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+
+        for (Entries entry : entries) {
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+
+        return entriesDtos;
+    }
+
+    public List<EntriesDto> getEntriesByDate(String personId, LocalDate date) {
+
+        UUID userId = UUID.fromString(personId);
+
+        List<Entries> entries =
+                entriesRepository.findByUsersAndEntryDate(userId, date);
+
+        List<EntriesDto> entriesDtos = new ArrayList<>();
+
+        for (Entries entry : entries) {
+            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
+        }
+
+        return entriesDtos;
+    }
+
 
 
 }

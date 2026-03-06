@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.NoArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,27 +20,11 @@ public class JwtService {
     @Value("${supabase.jwt.secret}")
     private String jwtSecret;
 
-    @jakarta.annotation.PostConstruct
-    public void init() {
-        System.out.println("JwtService initialized with secret: " + (jwtSecret != null ? "LOADED" : "NULL"));
-    }
-
-
-    public String extractName(String token){
+    public String extractName(String token) {
         return extractClaim(token, claims -> {
             HashMap<?, ?> userMetadata = claims.get("user_metadata", HashMap.class);
-            if (userMetadata != null) {
+            if (userMetadata != null && userMetadata.get("name") != null) {
                 return userMetadata.get("name").toString();
-            }
-            return null;
-        });
-    }
-
-    public String extractRole(String token){
-        return extractClaim(token, claims -> {
-            HashMap<?, ?> userMetadata = claims.get("user_metadata", HashMap.class);
-            if (userMetadata != null) {
-                return userMetadata.get("role").toString();
             }
             return null;
         });
@@ -56,17 +39,16 @@ public class JwtService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+        Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(getSignKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims;
     }
 
     private Boolean isTokenExpired(String token) {
@@ -75,10 +57,8 @@ public class JwtService {
 
     public Boolean validateToken(String token) {
         try {
-            boolean result = !isTokenExpired(token);
-            return result;
+            return !isTokenExpired(token);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

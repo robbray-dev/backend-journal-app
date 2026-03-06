@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -26,4 +27,7 @@ public class EntriesDto {
     private String what_learned;
 
     private Instant createdAt;
+
+    private LocalDate entryDate;
+
 }

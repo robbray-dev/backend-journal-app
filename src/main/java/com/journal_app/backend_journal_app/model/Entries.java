@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 @Table(name  = "entries")
@@ -28,6 +29,9 @@ public class Entries {
 
     @Column(name = "what_learned")
     private String what_learned;
+
+    @Column(name = "entry_date", nullable = false)
+    private LocalDate entryDate;
 
     @Column(name = "users")
     private UUID users;

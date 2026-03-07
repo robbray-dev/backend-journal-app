@@ -35,10 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             token = authHeader.substring(7);
             try {
                 personId = jwtService.extractPersonId(token);
-                System.out.println("pid " + personId);
                 personName = jwtService.extractName(token);
-                System.out.println("pn " + personName);
-
             } catch (Exception e) {
                 filterChain.doFilter(request, response);
                 return;

@@ -15,13 +15,6 @@ public interface EntriesRepository
 
     List<Entries> findByUsers(UUID users);
 
-    List<Entries> findByUsersAndCreatedAtBetweenOrderByCreatedAtDesc(
-            UUID users,
-            Instant start,
-            Instant end
-    );
-
-    List<Entries> findByPersonIdAndEntryDate(String personId, LocalDate entryDate);
 
     List<Entries> findByUsersAndEntryDate(UUID userId, LocalDate entryDate);
 

@@ -78,15 +78,6 @@ public class EntriesController {
         return ResponseEntity.ok(entryDto);
     }
 
-    @GetMapping("/today")
-    public ResponseEntity<List<EntriesDto>> getTodayEntries(Authentication authentication){
-
-
-        String personId = authUtil.getPersonId(authentication);
-
-
-        return ResponseEntity.ok(entriesService.getTodaysEntries(personId));
-    }
 
     @GetMapping("/range")
     public ResponseEntity<List<EntriesDto>> getEntriesForRange(

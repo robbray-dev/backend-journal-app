@@ -88,23 +88,7 @@ public class EntriesServiceImpl implements IEntriesService {
 
     }
 
-    @Override
-    public List<EntriesDto> getTodaysEntries(String personId) {
 
-        UUID userId = UUID.fromString(personId);
-        LocalDate today = LocalDate.now();
-
-        List<Entries> entries =
-                entriesRepository.findByUsersAndEntryDate(userId, today);
-
-        List<EntriesDto> entriesDtos = new ArrayList<>();
-
-        for (Entries entry : entries) {
-            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
-        }
-
-        return entriesDtos;
-    }
     @Override
     public List<EntriesDto> getRangeOfEntries(
             String personId,
@@ -155,6 +139,7 @@ public class EntriesServiceImpl implements IEntriesService {
         return entriesDtos;
     }
 
+    @Override
     public List<EntriesDto> getEntriesByDate(String personId, LocalDate date) {
 
         UUID userId = UUID.fromString(personId);

@@ -114,30 +114,7 @@ public class EntriesServiceImpl implements IEntriesService {
         return entriesDtos;
     }
 
-    @Override
-    public List<EntriesDto> getWeekEntries(String personId) {
 
-        UUID userId = UUID.fromString(personId);
-
-        LocalDate today = LocalDate.now();
-        LocalDate monday = today.with(DayOfWeek.MONDAY);
-        LocalDate sunday = monday.plusDays(6);
-
-        List<Entries> entries =
-                entriesRepository.findByUsersAndEntryDateBetweenOrderByEntryDateDesc(
-                        userId,
-                        monday,
-                        sunday
-                );
-
-        List<EntriesDto> entriesDtos = new ArrayList<>();
-
-        for (Entries entry : entries) {
-            entriesDtos.add(EntriesMapper.mapToEntriesDto(entry));
-        }
-
-        return entriesDtos;
-    }
 
     @Override
     public List<EntriesDto> getEntriesByDate(String personId, LocalDate date) {

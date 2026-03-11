@@ -90,15 +90,7 @@ public class EntriesController {
         return ResponseEntity.ok(entriesService.getRangeOfEntries(personId, start, end));
     }
 
-    @GetMapping("/weekly")
-    public ResponseEntity<List<EntriesDto>> getEntriesWeekly(
-            Authentication authentication) {
 
-        String personId = authUtil.getPersonId(authentication);
-
-
-        return ResponseEntity.ok(entriesService.getWeekEntries(personId));
-    }
 
     @GetMapping("/by-date")
     public List<EntriesDto> getEntriesByDate(
